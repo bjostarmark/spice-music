@@ -1,0 +1,44 @@
+* C:\Users\bjost\Google Drive\Projects\Synth\spice-music\Custom_Components\sch\vco_saw.asc
+* TB 303 based Sawtooth VCO. Normalized to +/-1V and zero DC out.
+* Control voltage is standard 0-10V. CV = 1V is note A1 (55 Hz). Can easily be tuned adding a DC offset to the external control voltage.
+* Based on a discrete triac ()Q1, Q2, Q3, D1). Swings between +12V and +5.33V.
+* J1 and .ic V(e1) = 8 are required for startup of VCO. DC output level will drift with temperature.
+* See also vco_saw.asc for schematic.
+*
+* Björn Starmark 2021. Free use.
+*
+.subckt vco CV Out
+*               |	|
+*                	|	0 - 10V Frequency control voltage
+*                  		+/-1V output
+Q1 N001 N003 e1 0 2N2222
+Q2 N003 N003 N004 0 2N2222
+D1 N002 N003 1n4148
+Q3 N002 N001 cc 0 2N2907
+R1 N004 v53 10k
+C1 e1 0 10n
+J1 cc e1 x1 PN4393
+R2 x1 0 10k
+B1 N005 0 V=0.34*(V(x1)-9.2)
+V2 v53 0 5.333
+V3 cc 0 12
+B2 e1 0 I=1.63e-6*pow(2,V(CV))
+R3 CV 0 100k
+R4 out N005 100
+.model D D
+.lib C:\Users\bjost\OneDrive\Dokument\LTspiceXVII\lib\cmp\standard.dio
+.model NPN NPN
+.model PNP PNP
+.lib C:\Users\bjost\OneDrive\Dokument\LTspiceXVII\lib\cmp\standard.bjt
+.model NJF NJF
+.model PJF PJF
+.lib C:\Users\bjost\OneDrive\Dokument\LTspiceXVII\lib\cmp\standard.jft
+.ic V(e1)=8
+* TB-303 VCO
+* J1 needed for start-up
+* Normalized to +/-1V out, DC = 0V
+* For startup
+* Rin
+* Rout
+.backanno
+.end

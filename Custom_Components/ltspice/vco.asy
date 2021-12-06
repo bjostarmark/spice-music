@@ -1,0 +1,14 @@
+Version 4
+SymbolType BLOCK
+LINE Normal -16 32 -16 64
+LINE Normal 16 64 -16 32
+LINE Normal 16 64 16 64
+RECTANGLE Normal 64 80 -64 16
+SYMATTR Prefix X
+SYMATTR Value vco
+PIN -64 48 LEFT 8
+PINATTR PinName CV
+PINATTR SpiceOrder 1
+PIN 64 48 RIGHT 8
+PINATTR PinName Out
+PINATTR SpiceOrder 2
